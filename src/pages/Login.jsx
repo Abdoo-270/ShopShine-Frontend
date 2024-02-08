@@ -19,13 +19,13 @@ const Login = () => {
           type="password"
           label="password"
           name="password"
-          defaultValue="secret"
+          defaultValue="secretsecret"
         />
-        <div className="mt-4">
+        <div className="mt-4 ">
           <SubmitButton text="login" />
         </div>
         <p className="text-center">
-          Not a member yet?
+          Dont have account?
           <Link
             to="/register"
             className="ml-2 link link-hover link-primary capitalize"

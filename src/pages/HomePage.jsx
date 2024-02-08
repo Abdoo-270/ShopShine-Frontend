@@ -1,11 +1,14 @@
+import Header from "../components/Header";
+import { Navbar } from "../components";
 import { Outlet } from "react-router-dom";
 const HomePage = () => {
   return (
     <>
-      <nav>
-        <span className="text-4xl text-primary">ShopShine</span>
-      </nav>
-      <Outlet />
+      <Header />
+      <Navbar />
+      <section className="align-element py-20">
+        <Outlet />
+      </section>
     </>
   );
 };
