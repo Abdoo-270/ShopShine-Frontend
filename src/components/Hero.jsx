@@ -7,7 +7,7 @@ const Hero = () => {
     <div className=" grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
       <div>
         <h1 className="max-w-2xl text-1xl font-bold tracking-tight  sm:text-6xl ">
-          We’re Shaping the future of E-commerce
+          Shop smarter, shop here
         </h1>
 
         <p className="mt-8 max-w-xl text-lg leading-8">
