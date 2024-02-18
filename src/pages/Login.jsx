@@ -1,5 +1,24 @@
 import { FormInput, SubmitButton } from "../components";
-import { Form, Link } from "react-router-dom";
+import { Form, Link, redirect, useNavigate } from "react-router-dom";
+import { customFetch } from "../utils/index";
+import { toast } from "react-toastify";
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  try {
+    const response = await customFetch.post("/auth/login", data);
+    console.log(response);
+    //store.dispatch(loginUser(response.data));
+    toast.success("logged in successfully");
+    return redirect("/");
+  } catch (error) {
+    const errorMessage =
+      error.response.data.msg || "please double check your credentials";
+    toast.error(errorMessage);
+    return null;
+  }
+};
 
 const Login = () => {
   return (
@@ -12,7 +31,7 @@ const Login = () => {
         <FormInput
           type="email"
           label="email"
-          name="identifier"
+          name="email"
           defaultValue="test@test.com"
         />
         <FormInput
@@ -24,6 +43,9 @@ const Login = () => {
         <div className="mt-4 ">
           <SubmitButton text="login" />
         </div>
+        <button type="button" className="btn btn-secondary btn-block">
+          guest user
+        </button>
         <p className="text-center">
           Dont have account?
           <Link

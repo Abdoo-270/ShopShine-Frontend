@@ -14,6 +14,10 @@ import {
   Checkout,
 } from "./pages";
 
+//actions
+import { action as registerAction } from "./pages/Register";
+import { action as loginAction } from "./pages/Login";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,25 +44,19 @@ const router = createBrowserRouter([
         path: "about",
         element: <About />,
       },
-      {
-        path: "orders",
-        element: <OrdersHistory />,
-      },
-      {
-        path: "checkout",
-        element: <Checkout />,
-      },
     ],
   },
   {
     path: "/login",
     element: <Login />,
     errorElement: <Error />,
+    action: loginAction,
   },
   {
     path: "/register",
     element: <Register />,
     errorElement: <Error />,
+    action: registerAction,
   },
 ]);
 const App = () => {
