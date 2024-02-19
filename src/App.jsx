@@ -1,6 +1,4 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
 import {
   HomePage,
   Landing,
@@ -19,17 +17,6 @@ import {
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { store } from "./store";
-
-/*
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5,
-      // cacheTime: 1000,
-    },
-  },
-});
-*/
 
 const router = createBrowserRouter([
   {
@@ -56,6 +43,14 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "checkout",
+        element: <Checkout />,
+      },
+      {
+        path: "orders",
+        element: <OrdersHistory />,
       },
     ],
   },
