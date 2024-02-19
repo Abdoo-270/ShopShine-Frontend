@@ -8,6 +8,8 @@ const links = [
   { id: 4, url: "cart", text: "cart" },
   { id: 5, url: "checkout", text: "checkout" },
   { id: 6, url: "orders", text: "orders" },
+  { id: 7, url: "control-products", text: "control products" },
+  { id: 8, url: "control-users", text: "control users" },
 ];
 
 const NavLinks = () => {
@@ -16,7 +18,22 @@ const NavLinks = () => {
     <>
       {links.map((link) => {
         const { id, url, text } = link;
-        if ((url === "checkout" || url === "orders") && !user) return null;
+        if (
+          (url === "checkout" ||
+            url === "orders" ||
+            url === "control-products" ||
+            url === "control-users") &&
+          !user
+        )
+          return null;
+        if (user) {
+          if (
+            user.role === "user" &&
+            (url === "control-products" || url === "control-users")
+          ) {
+            return null;
+          }
+        }
         return (
           <li key={id}>
             <NavLink className="capitalize" to={url}>

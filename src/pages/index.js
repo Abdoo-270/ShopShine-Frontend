@@ -10,3 +10,5 @@ export { default as OrdersHistory } from "./OrdersHistory";
 export { default as Error } from "./Error";
 export { default as Landing } from "./Landing";
 export { default as Checkout } from "./Checkout";
+export { default as ControlProducts } from "./ControlProducts";
+export { default as ControlUsers } from "./ControlUsers";

@@ -69,6 +69,11 @@ const Login = () => {
             register
           </Link>
         </p>
+        <p className="text-center">
+          <Link to="/" className="ml-2 link link-hover link-primary capitalize">
+            Go back to home page
+          </Link>
+        </p>
       </Form>
     </section>
   );

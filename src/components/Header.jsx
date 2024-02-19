@@ -2,8 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser, logoutUser } from "../features/user/userSlice";
 import { useEffect } from "react";
-
+import { toast } from "react-toastify";
 const Header = () => {
+  const navigate = useNavigate();
   const user = useSelector((state) => state.userState.user);
   const dispatch = useDispatch();
 
@@ -11,6 +12,16 @@ const Header = () => {
     dispatch(fetchUser());
   }, [dispatch]);
 
+  const checkUserRole = () => {
+    if (!user || user.role === "user") {
+      toast.warning(
+        "only admins can access this page, you can login as an admin by using => Email: admin@test.com   Password: secret"
+      );
+      navigate("/login");
+    } else if (user.role === "admin") {
+      toast.success("you are already in the admin page");
+    }
+  };
   return (
     <header className="bg-neutral py-2 text-neutral-content">
       <div className="align-element flex justify-center sm:justify-end">
@@ -25,9 +36,15 @@ const Header = () => {
             >
               logout
             </button>
-            <Link to="/register" className="link link-hover text-xs sm:text-sm">
-              <button className="btn btn-primary btn-sm ">Admin Panel</button>
-            </Link>
+            <button
+              className="btn btn-primary btn-sm "
+              onClick={() => checkUserRole()}
+            >
+              Admin Panel
+              {/*
+              {user.role === "admin" ? "User Panel" : "Admin Panel"}
+        */}
+            </button>
           </div>
         ) : (
           <div className="flex gap-x-6 justify-center items-center">
@@ -37,9 +54,12 @@ const Header = () => {
             <Link to="/register" className="link link-hover text-xs sm:text-sm">
               Create Account
             </Link>
-            <Link to="/register" className="link link-hover text-xs sm:text-sm">
-              <button className="btn btn-primary btn-sm ">Admin Panel</button>
-            </Link>
+            <button
+              className="btn btn-primary btn-sm "
+              onClick={() => checkUserRole()}
+            >
+              Admin Panel
+            </button>
           </div>
         )}
       </div>

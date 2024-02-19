@@ -11,6 +11,8 @@ import {
   OrdersHistory,
   Error,
   Checkout,
+  ControlProducts,
+  ControlUsers,
 } from "./pages";
 
 //actions
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
       {
         path: "orders",
         element: <OrdersHistory />,
+      },
+      {
+        path: "control-products",
+        element: <ControlProducts />,
+      },
+      {
+        path: "control-users",
+        element: <ControlUsers />,
       },
     ],
   },
