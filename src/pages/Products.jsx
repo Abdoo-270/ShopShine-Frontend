@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../features/product/productSlice";
+import { getAllProducts } from "../features/products/productsSlice";
 import { products } from "../mockData";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
 const Products = () => {
-  const productsDb = useSelector((state) => state.productState.products);
-  const isLoading = useSelector((state) => state.productState.loading);
+  const productsDb = useSelector((state) => state.productsState.products);
+  const isLoading = useSelector((state) => state.productsState.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {

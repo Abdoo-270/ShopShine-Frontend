@@ -1,37 +1,39 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import { customFetch } from "../../utils";
-
-export const getAllProducts = createAsyncThunk("products/", async () => {
-  try {
-    const response = await customFetch.get("/products");
-    const products = response.data.products;
-    return products;
-  } catch (error) {
-    console.log(error);
+export const getSingleProduct = createAsyncThunk(
+  "products/getSingleProduct",
+  async (id) => {
+    try {
+      const response = await customFetch.get(`/products/${id}`);
+      const product = response.data.product;
+      console.log(product);
+      return product;
+    } catch (error) {
+      console.log(error);
+    }
   }
-});
+);
 const initialState = {
-  products: [],
+  product: null,
   loading: false,
   error: null,
 };
 
 const productSlice = createSlice({
-  name: "products",
+  name: "product",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllProducts.pending, (state) => {
+      .addCase(getSingleProduct.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(getAllProducts.fulfilled, (state, action) => {
+      .addCase(getSingleProduct.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload;
+        state.product = action.payload;
       })
-      .addCase(getAllProducts.rejected, (state, action) => {
+      .addCase(getSingleProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

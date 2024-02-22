@@ -1,27 +1,49 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../features/product/productSlice";
+import { getAllProducts } from "../features/products/productsSlice";
+import { getSingleProduct } from "../features/product/productSlice";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
+import EditProductModel from "../components/EditProductModel";
 const ControlProducts = () => {
-  const productsDb = useSelector((state) => state.productState.products);
-  const isLoading = useSelector((state) => state.productState.loading);
   const dispatch = useDispatch();
+  const products = useSelector((state) => state.productsState.products);
+  const isProductsLoading = useSelector((state) => state.productsState.loading);
 
+  const product = useSelector((state) => state.productState.product);
+  const isProductLoading = useSelector((state) => state.productState.loading);
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
 
-  if (isLoading) {
+  useEffect(() => {
+    if (product) {
+      // Show the modal
+      const modal = document.getElementById("my_modal_1");
+      if (modal) {
+        modal.showModal();
+      } else {
+        console.error("Modal element not found");
+      }
+    }
+  }, [product]);
+
+  if (isProductsLoading || isProductLoading) {
     return (
       <div className="flex justify-center items-center h-1/2 ">
         <span className="loading loading-spinner loading-lg"></span>
       </div>
     );
   }
+
+  const handleEditClick = (id) => {
+    // Dispatch the action to fetch the single product
+    dispatch(getSingleProduct(id));
+  };
+
   return (
     <div className=" grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {productsDb.map((product) => {
+      {products.map((product) => {
         const { title, price, image } = product;
         return (
           <article
@@ -43,29 +65,14 @@ const ControlProducts = () => {
               {/* Open the modal using document.getElementById('ID').showModal() method */}
               <button
                 className="text-white bg-green-900 w-1/2 btn"
-                onClick={() =>
-                  document.getElementById("my_modal_1").showModal()
-                }
+                onClick={() => handleEditClick(product.id)}
               >
-                Edit{" "}
+                Edit
                 <span>
                   <AiOutlineEdit />
                 </span>
               </button>
-              <dialog id="my_modal_1" className="modal">
-                <div className="modal-box">
-                  <h3 className="font-bold text-lg">Hello!</h3>
-                  <p className="py-4">
-                    Press ESC key or click the button below to close
-                  </p>
-                  <div className="modal-action">
-                    <form method="dialog">
-                      {/* if there is a button in form, it will close the modal */}
-                      <button className="btn">Close</button>
-                    </form>
-                  </div>
-                </div>
-              </dialog>
+              <EditProductModel />
 
               <button className="text-white bg-red-800 w-1/2 btn btn-error">
                 Remove
