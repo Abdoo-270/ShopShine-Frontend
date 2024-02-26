@@ -6,7 +6,18 @@ export const getSingleProduct = createAsyncThunk(
     try {
       const response = await customFetch.get(`/products/${id}`);
       const product = response.data.product;
-      console.log(product);
+      return product;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+export const updateProduct = createAsyncThunk(
+  "products/updateProduct",
+  async (id, data) => {
+    try {
+      const response = await customFetch.patch(`/products/${id}`, data);
+      console.log(response);
       return product;
     } catch (error) {
       console.log(error);
@@ -15,7 +26,7 @@ export const getSingleProduct = createAsyncThunk(
 );
 const initialState = {
   product: null,
-  loading: false,
+  loading: true,
   error: null,
 };
 

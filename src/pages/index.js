@@ -12,3 +12,4 @@ export { default as Landing } from "./Landing";
 export { default as Checkout } from "./Checkout";
 export { default as ControlProducts } from "./ControlProducts";
 export { default as ControlUsers } from "./ControlUsers";
+export { default as UpdateProduct } from "./UpdateProduct";

@@ -1,18 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../features/products/productsSlice";
-import { products } from "../mockData";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
 const Products = () => {
-  const productsDb = useSelector((state) => state.productsState.products);
+  const products = useSelector((state) => state.productsState.products);
   const isLoading = useSelector((state) => state.productsState.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
-  console.log(productsDb, isLoading);
+  console.log(products, isLoading);
 
   if (isLoading) {
     return (
@@ -23,7 +22,7 @@ const Products = () => {
   }
   return (
     <div className=" grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {productsDb.map((product) => {
+      {products.map((product) => {
         const { title, price, image } = product;
         return (
           <Link

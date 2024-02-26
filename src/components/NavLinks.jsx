@@ -9,6 +9,7 @@ const links = [
   { id: 5, url: "checkout", text: "checkout" },
   { id: 6, url: "orders", text: "orders" },
   { id: 7, url: "control-products", text: "control products" },
+
   { id: 8, url: "control-users", text: "control users" },
 ];
 
@@ -30,6 +31,15 @@ const NavLinks = () => {
           if (
             user.role === "user" &&
             (url === "control-products" || url === "control-users")
+          ) {
+            return null;
+          }
+          if (
+            user.role === "admin" &&
+            (url === "products" ||
+              url === "cart" ||
+              url === "checkout" ||
+              url === "orders")
           ) {
             return null;
           }
