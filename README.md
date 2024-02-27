@@ -4,6 +4,10 @@ This project is an implementation of a user authentication system with role-base
 
 This is the frontend part of the Authentication and Role-based Permissions project. It's developed using React and Redux.
 
+To be able to login as an admin you can use this
+Email: admin@test.com
+Password: secret
+
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)

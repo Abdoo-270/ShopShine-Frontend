@@ -14,12 +14,15 @@ import {
   ControlProducts,
   ControlUsers,
   UpdateProduct,
+  CreateProduct,
 } from "./pages";
 
 //actions
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { action as updateProductAction } from "./pages/UpdateProduct";
+import { action as createProductAction } from "./pages/CreateProduct";
+
 import { store } from "./store";
 const router = createBrowserRouter([
   {
@@ -64,6 +67,12 @@ const router = createBrowserRouter([
         element: <UpdateProduct />,
         errorElement: <Error />,
         action: updateProductAction(),
+      },
+      {
+        path: "control-products/createProduct",
+        element: <CreateProduct />,
+        errorElement: <Error />,
+        action: createProductAction,
       },
       {
         path: "control-users",

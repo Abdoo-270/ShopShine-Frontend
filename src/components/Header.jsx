@@ -14,10 +14,8 @@ const Header = () => {
 
   const checkUserRole = () => {
     if (!user || user.role === "user") {
-      toast.warning(
-        "only admins can access this page, you can login as an admin by using => Email: admin@test.com   Password: secret"
-      );
-      navigate("/login");
+      toast.error("Sorry, Only admins can access this page");
+      navigate("/");
     } else if (user.role === "admin") {
       toast.success("you are already in the admin page");
     }

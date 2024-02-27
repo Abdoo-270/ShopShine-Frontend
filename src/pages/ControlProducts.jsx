@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../features/products/productsSlice";
-import { getSingleProduct } from "../features/product/productSlice";
+import { deleteProduct } from "../features/product/productSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
@@ -22,49 +22,59 @@ const ControlProducts = () => {
   }
 
   return (
-    <div className=" grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {products.map((product) => {
-        const { title, price, image } = product;
-        return (
-          <article
-            key={product.id}
-            className="card w-full shadow-xl hover:shadow-2xl transition duration-300"
-          >
-            <figure className="px-4 pt-4">
-              <img
-                src={image}
-                alt={title}
-                className="rounded-xl h-64 md:h-48 w-full object-cover"
-              />
-            </figure>
-            <div className="card-body items-center text-center">
-              <h2 className="card-title capitalize tracking-wider">{title}</h2>
-              <span className="text-secondary">{price} ₺</span>
-            </div>
-            <div className="flex justify-between mt-0">
-              {/* Open the modal using document.getElementById('ID').showModal() method */}
-              <Link
-                key={product.id}
-                to={`/control-products/${product.id}`} // Include the "control-products" segment
-                className="text-white bg-green-900 w-1/2 btn"
-              >
-                Edit
-                <span>
-                  <AiOutlineEdit />
-                </span>
-              </Link>
+    <>
+      <Link
+        to={"/control-products/createProduct"}
+        className="text-white btn btn-primary"
+      >
+        Add New Product
+      </Link>
 
-              <button className="text-white bg-red-800 w-1/2 btn btn-error">
-                Remove
-                <span>
-                  <AiOutlineDelete />
-                </span>
-              </button>
-            </div>
-          </article>
-        );
-      })}
-    </div>
+      <div className=" grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {products.map((product) => {
+          const { title, price, image } = product;
+          return (
+            <article
+              key={product.id}
+              className="card w-full shadow-xl hover:shadow-2xl transition duration-300"
+            >
+              <figure className="px-4 pt-4">
+                <img
+                  src={image}
+                  alt={title}
+                  className="rounded-xl h-64 md:h-48 w-full object-cover"
+                />
+              </figure>
+              <div className="card-body items-center text-center">
+                <h2 className="card-title capitalize tracking-wider">
+                  {title}
+                </h2>
+                <span className="text-secondary">{price} ₺</span>
+              </div>
+              <div className="flex justify-between mt-0">
+                <Link
+                  key={product.id}
+                  to={`/control-products/${product.id}`} // Include the "control-products" segment
+                  className="text-white bg-green-900 w-1/2 btn"
+                >
+                  Edit
+                  <span>
+                    <AiOutlineEdit />
+                  </span>
+                </Link>
+
+                <button className="text-white bg-red-800 w-1/2 btn btn-error">
+                  Remove
+                  <span>
+                    <AiOutlineDelete />
+                  </span>
+                </button>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </>
   );
 };
 export default ControlProducts;

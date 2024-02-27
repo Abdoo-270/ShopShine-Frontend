@@ -1,4 +1,5 @@
+import UsersList from "../components/UsersList";
 const ControlUsers = () => {
-  return <h1>control users</h1>;
+  return <UsersList />;
 };
 export default ControlUsers;

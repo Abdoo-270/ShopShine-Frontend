@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { customFetch } from "../../utils";
+
 export const getSingleProduct = createAsyncThunk(
   "products/getSingleProduct",
   async (id) => {
@@ -12,11 +13,11 @@ export const getSingleProduct = createAsyncThunk(
     }
   }
 );
-export const updateProduct = createAsyncThunk(
-  "products/updateProduct",
-  async (id, data) => {
+export const deleteProduct = createAsyncThunk(
+  "products/deleteProduct",
+  async (id) => {
     try {
-      const response = await customFetch.patch(`/products/${id}`, data);
+      const response = await customFetch.delete(`/products/${id}`);
       console.log(response);
       return product;
     } catch (error) {
@@ -24,6 +25,7 @@ export const updateProduct = createAsyncThunk(
     }
   }
 );
+
 const initialState = {
   product: null,
   loading: true,
@@ -45,6 +47,20 @@ const productSlice = createSlice({
         state.product = action.payload;
       })
       .addCase(getSingleProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(deleteProduct.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        // Assuming action.payload is the id of the deleted product
+        // You can update the state accordingly
+        state.product = null; // Reset the product after deletion
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
