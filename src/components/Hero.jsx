@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 
 import hero1 from "../assets/hero1.png";
+import { useSelector } from "react-redux";
 
 const Hero = () => {
+  const user = useSelector((state) => state.userState.user);
+  const userRole = user.role;
+
   return (
     <div className=" grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
       <div>
@@ -17,9 +21,11 @@ const Hero = () => {
           qui lorem cupidatat commodo.
         </p>
         <div className="mt-10 ">
-          <Link to="products" className="btn btn-primary ">
-            Our Products
-          </Link>
+          {userRole === user && (
+            <Link to="products" className="btn btn-primary ">
+              Our Products
+            </Link>
+          )}
         </div>
       </div>
       <div className="hidden  h-[28rem] lg:carousel carousel-center   p-4 space-x-4 bg-neutral rounded-box">
